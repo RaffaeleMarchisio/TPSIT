@@ -35,6 +35,7 @@ int main(){
                     n=0;
                 }
             }
+            printf("\n");
         }
         else if(risp==2)
         {
@@ -53,6 +54,7 @@ int main(){
                     n=0;
                 }
             }
+            printf("\n");
         }
     }while (risp!=3);
     return 0;
