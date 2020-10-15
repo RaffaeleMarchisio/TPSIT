@@ -40,6 +40,19 @@ int main(){
         {
             printf("inserire una stringa:");
             scanf("%s",str);
+            for(int k=0; k<strlen(str); k++)
+            {
+                if(str[k]>= '0' && str[k]<='9'){
+                    n=str[k]-'0';
+                }
+                else
+                {
+                    for(int j=0; j<n; j++)
+                        printf("%c",str[k]);
+                    
+                    n=0;
+                }
+            }
         }
     }while (risp!=3);
     return 0;
