@@ -49,7 +49,7 @@ int main()
     }
     
     for(int i=0;i<dim;i++){
-        n[i]=i;
+        *(n+i)=i;
     }
     srand (time(NULL));
     for(int i=0;i<dim;i++){
