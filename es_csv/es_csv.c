@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <time.h>
 
 #define MAX 100
 #define NSONG 1000
@@ -13,14 +14,18 @@ typedef struct scanzone
     char artista[MAX];
 }Canzone;
 
-
 int main()
 {
-    Canzone playlist[NSONG];
+    Canzone *playlist;
     FILE *fp;
     char riga[BSIZE];
-    int cont=0;
+    int cont=0,lung=0;
     char *field;
+    int dim=10;
+    int x=0,j,temp;
+    int n[MAX];
+
+    playlist=(Canzone*)malloc(10*sizeof(Canzone));
 
     fp=fopen("canzoni.csv","r");
     if (fp!=NULL)
@@ -28,11 +33,11 @@ int main()
         while (fgets(riga,BSIZE,fp))
         {
             field=strtok(riga,",");
-            playlist[cont].numero = atoi(field);
+            (playlist+cont)->numero= atoi(field);
             field=strtok(NULL,",");
-            playlist[cont].titolo =strdup(field);
+            strcpy((playlist+cont)->titolo,field);
             field=strtok(NULL,",");
-            playlist[cont].artista =strdup(field);
+            strcpy((playlist+cont)->artista,field);
 
             cont++;
         }
@@ -42,16 +47,24 @@ int main()
     {
         return -1;
     }
-    for (int i = 0; i < 50; i++)
-    {
-        printf("%s",playlist->titolo[i]);
+    
+    for(int i=0;i<dim;i++){
+        n[i]=i;
     }
+    srand (time(NULL));
+    for(int i=0;i<dim;i++){
+        j=(rand()%9)+0;
+        temp=*(n+i);
+        *(n+i)=*(n+j);
+        *(n+j)=temp;
+    }
+    for(int i=0;i<dim;i++){
+        printf("%d %s %s",(playlist+*(n+i))->numero, (playlist+*(n+i))->titolo, (playlist+*(n+i))->artista);
+        if((playlist+*(n+i))->numero==9)
+        {
+        	printf("\n");
+        }
+    }
+
     return 0;
 }
-
-
-
-/*metodologia file.csv
-fgets(nome variabile in cui salva,lunghezza,puntatore)
-permette di leggere il file riga dopo riga
-strdup prende una stringa e fa una copia*/
